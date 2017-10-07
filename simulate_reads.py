@@ -5,7 +5,7 @@ import os
 def parse_args():
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("-d", "--debug")
+    parser.add_argument("-d", "--debug", action='store_true')
     # arts_illumina params
     parser.add_argument("name", type=str, help="Name of simulation runs")
     parser.add_argument("reference", type=str, help="The path to the reference to make reads from")
@@ -31,7 +31,7 @@ def main():
     args = parse_args()
     debug = args.debug
     # Simulate reads
-    for sim_num in range(0, args.num_simulations):
+    for sim_num in range(1, args.num_simulations+1):
         sim_name = "{}_{}".format(args.name, sim_num)
         # -------------------------------------
         command = 'mkdir {}'.format(sim_name)
@@ -80,7 +80,8 @@ def main():
             command = 'Rscript {} formatted_freq_k{}.hist {} {} ../genomescope/k{} {}'.format(
                 genomescope, k, k, args.length, k, args.max_coverage)
             print(command)
-            os.system(command)
+            if not debug:
+                os.system(command)
         command = 'cd ../..'
         print(command)
         if not debug:
