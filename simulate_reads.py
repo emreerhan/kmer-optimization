@@ -42,7 +42,7 @@ def main():
         command = 'cd {}'.format(sim_name)
         print(command)
         if not debug:
-            os.system(command)
+            os.chdir(sim_name)
         # -------------------------------------
         command = 'art_illumina -ss HSXt -sam -i {} -p -l {} -f {} -m {} -s {} -o paired_dat > simulation.info'.format(
             args.reference, args.length, args.coverage, args.frag_length, args.std_dev)
@@ -58,7 +58,7 @@ def main():
         command = 'cd ntcard'
         print(command)
         if not debug:
-            os.system('cd ntcard')
+            os.chdir('ntcard')
         # ntcard ------------------------------
         ntcard_call = 'ntcard -c {} -k {} -t 2 ../paired_dat1.fq ../paired_dat2.fq'.format(
             args.max_coverage, args.kmer_range)
@@ -85,7 +85,7 @@ def main():
         command = 'cd ../..'
         print(command)
         if not debug:
-            os.system('cd ../..')
+            os.chdir('../..')
 
 
 if __name__ == '__main__':
