@@ -48,9 +48,15 @@ def main():
             args.reference, args.length, args.coverage, args.frag_length, args.std_dev)
         print(command)
         if not debug:
+            #print('skipping')
             os.system(command)
         # -------------------------------------
         command = 'mkdir ntcard'
+        print(command)
+        if not debug:
+            os.system(command)
+        # -------------------------------------
+        command = 'mkdir genomescope'
         print(command)
         if not debug:
             os.system(command)
@@ -64,15 +70,17 @@ def main():
             args.max_coverage, args.kmer_range)
         print(ntcard_call)
         if not debug:
+            #print('skipping')
             os.system(ntcard_call)
         # GenomeScope
         for k in args.kmer_range.split(','):
-            command = 'mkdir ../genomescope/k{}'.format(k)
+            path = '../genomescope/k{}'.format(k)
+            command = 'mkdir {}'.format(path)
             print(command)
             if not debug:
                 os.system(command)
             # ----------------------------------
-            command = 'cat freq_k{}.hist | sed \'s/\\t/ /g; s/f//g; F/d\' > formatted_freq_k{}.hist'.format(k, k)
+            command = 'cat freq_k{}.hist | sed \'s/\\t/ /g; s/f//g; /F/d\' > formatted_freq_k{}.hist'.format(k, k)
             print(command)
             if not debug:
                 os.system(command)
